@@ -19,6 +19,7 @@ VBOX_MANAGE=$(which "$VBOX_MANAGE_SEARCH" 2>/dev/null) || die "File ${VBOX_MANAG
 # Check VM exists
 if ! "$VBOX_MANAGE" showvminfo "$VM_NAME" &>/dev/null; then
     echo "Virtual machine $VM_NAME does not exist yet! Starting setup ..."
+    cd ~ # otherwise Minikube could not find the ISO image if `pwd` is on another Windows drive than $HOME
     "$MINIKUBE" start --memory "$VM_MEMORY" && "$MINIKUBE" stop || die "Minkube startup failed!"
     echo "Change NIC mode from NAT to Briged using adapter $WIFI_ADAPTER ..."
     "$VBOX_MANAGE" modifyvm "$VM_NAME" --nic1 bridged --bridgeadapter1 "$WIFI_ADAPTER"
