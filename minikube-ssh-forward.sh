@@ -33,4 +33,4 @@ echo " $VM_IP"
 # Start SSH port forwarding
 echo 'SSH port forwarding started'
 SELF_DIR=$(dirname "$0")
-/usr/bin/perl "$SELF_DIR/tcpforward.pl" -k -c "${VM_IP}:22" -l "127.0.0.1:${LOCAL_SSH_PORT}"
+/usr/bin/perl "$SELF_DIR/tcp-proxy2.pl" "${LOCAL_SSH_PORT}" "${VM_IP}:22"

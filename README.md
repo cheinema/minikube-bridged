@@ -25,4 +25,4 @@ Unglücklicherweise ist die Portweiterleitung durch VirtualBox nur in Verbindung
 Es genügt die Ausführung von `minikube-run.sh` um zu einer laufenden Minikube-VM zu kommen. Falls diese noch nicht existiert, wird sie zunächst angelegt und dabei die Netzwerkkonfiguration angepasst (NAT -> Bridged). Die VM wird gestartet, falls sie existiert, aber gerade nicht läuft. In allen Fällen wird das erforderliche SSH-Port-Forwarding in einem separaten Fenster gestartet. 
 
 ## Copyright
-* `tcpforward.pl`: Copyright (C) 2007 by Alan Grow, [http://search.cpan.org/~acg/tcpforward-0.01/tcpforward](http://search.cpan.org/~acg/tcpforward-0.01/tcpforward)
+* `tcp-proxy2.pl`: Copyright (C) 2011 by Peteris Krumins, [https://github.com/pkrumins/perl-tcp-proxy2](https://github.com/pkrumins/perl-tcp-proxy2)
