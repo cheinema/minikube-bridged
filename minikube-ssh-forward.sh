@@ -18,6 +18,14 @@ LOCAL_SSH_PORT=$(grep SSHPort "$DOCKER_MACHINE_CONFIG" | cut -c20-24)
 [ -n "$LOCAL_SSH_PORT" ] || die "No SSH port in $DOCKER_MACHINE_CONFIG found!"
 echo "Local SSH port: $LOCAL_SSH_PORT"
 
+# Wait until VM is started
+echo -n 'Waiting until Virtual Machine is running...'
+while ! "$VBOX_MANAGE" showvminfo "$VM_NAME" --machinereadable | egrep '^VMState=' | grep -q 'running'; do
+    echo -n '.'
+	sleep 5
+done
+echo
+
 # Get IP of running VM
 echo -n 'Waiting for Virtual Machine IP...'
 VM_IP=
