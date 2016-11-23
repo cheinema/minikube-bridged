@@ -22,7 +22,7 @@ echo "Local SSH port: $LOCAL_SSH_PORT"
 echo -n 'Waiting until Virtual Machine is running...'
 while ! "$VBOX_MANAGE" showvminfo "$VM_NAME" --machinereadable | egrep '^VMState=' | grep -q 'running'; do
     echo -n '.'
-	sleep 5
+    sleep 5
 done
 echo
 
@@ -41,4 +41,7 @@ echo " $VM_IP"
 # Start SSH port forwarding
 echo 'SSH port forwarding started'
 SELF_DIR=$(dirname "$0")
-/usr/bin/perl "$SELF_DIR/tcp-proxy2.pl" "${LOCAL_SSH_PORT}" "${VM_IP}:22"
+while ! /usr/bin/perl "$SELF_DIR/tcp-proxy2.pl" "${LOCAL_SSH_PORT}" "${VM_IP}:22"; do
+    sleep 1
+    echo 'Restart SSH port forwarding after unexpected termination'
+done
