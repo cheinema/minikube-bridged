@@ -14,7 +14,7 @@ VBOX_MANAGE=$(which "$VBOX_MANAGE_SEARCH" 2>/dev/null) || die "File ${VBOX_MANAG
 
 # Read local SSH port (expected by docker-machine)
 [ -r "$DOCKER_MACHINE_CONFIG" ] || die "File $DOCKER_MACHINE_CONFIG not found!"
-LOCAL_SSH_PORT=$(grep SSHPort "$DOCKER_MACHINE_CONFIG" | cut -c20-24)
+LOCAL_SSH_PORT=$(grep SSHPort "$DOCKER_MACHINE_CONFIG" | grep --perl-regexp --only-matching '\d+')
 [ -n "$LOCAL_SSH_PORT" ] || die "No SSH port in $DOCKER_MACHINE_CONFIG found!"
 echo "Local SSH port: $LOCAL_SSH_PORT"
 
