@@ -1,7 +1,7 @@
 #!/bin/bash
 
 VM_NAME=minikube
-DOCKER_MACHINE_CONFIG=~/.minikube/machines/${VM_NAME}/config.json
+DOCKER_MACHINE_CONFIG=${MINIKUBE_HOME-~}/.minikube/machines/${VM_NAME}/config.json
 
 function die {
     echo "$@" >&2
