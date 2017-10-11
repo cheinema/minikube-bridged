@@ -31,7 +31,7 @@ NIC_TYPES=$("$VBOX_MANAGE" showvminfo "$VM_NAME" --details --machinereadable | e
 
 # Always start SSH port forwarding (in new window)
 SELF_DIR=$(dirname "$0")
-start \"Minikube SSH forwarding\" /bin/bash "$SELF_DIR/minikube-ssh-forward.sh"
+start "Minikube SSH forwarding" /bin/bash "$SELF_DIR/minikube-ssh-forward.sh"
 
 # Is minikube already running?
 if "$VBOX_MANAGE" showvminfo "$VM_NAME" --machinereadable | egrep '^VMState=' | grep -q 'running'; then
