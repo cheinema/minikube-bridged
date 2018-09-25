@@ -26,7 +26,7 @@ if ! "$VBOX_MANAGE" showvminfo "$VM_NAME" &>/dev/null; then
 fi
 
 # Validate Network setup: NAT is not allowed
-NIC_TYPES=$("$VBOX_MANAGE" showvminfo "$VM_NAME" --details --machinereadable | egrep '^nic[0-9]=' | grep -v 'none' | sort | paste -sd',')
+NIC_TYPES=$("$VBOX_MANAGE" showvminfo "$VM_NAME" --details --machinereadable | dos2unix | egrep '^nic[0-9]=' | grep -v 'none' | sort | paste -sd',')
 [ "$NIC_TYPES" == 'nic1="bridged",nic2="hostonly"' ] || die "Invalid NIC types detected: $NIC_TYPES"
 
 # Always start SSH port forwarding (in new window)
@@ -34,7 +34,7 @@ SELF_DIR=$(dirname "$0")
 start "Minikube SSH forwarding" /bin/bash "$SELF_DIR/minikube-ssh-forward.sh"
 
 # Is minikube already running?
-if "$VBOX_MANAGE" showvminfo "$VM_NAME" --machinereadable | egrep '^VMState=' | grep -q 'running'; then
+if "$VBOX_MANAGE" showvminfo "$VM_NAME" --machinereadable | dos2unix | egrep '^VMState=' | grep -q 'running'; then
     echo 'Minikube is already running.'
 else
     "$MINIKUBE" start || die 'Minikube could not be started!'
