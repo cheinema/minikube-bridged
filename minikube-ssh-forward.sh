@@ -30,7 +30,7 @@ echo
 echo -n 'Waiting for Virtual Machine IP...'
 VM_IP=
 while [ -z "$VM_IP" ]; do
-    VM_IP=$(grep IPAddress "$DOCKER_MACHINE_CONFIG" | grep --perl-regexp --only-matching '\d+\.\d+\.\d+\.\d+')
+    VM_IP=$(MSYS_NO_PATHCONV=1 "$VBOX_MANAGE" guestproperty get "$VM_NAME" '/VirtualBox/GuestInfo/Net/1/V4/IP' | grep 'Value:' | cut -c8-)
     if test -z "$VM_IP"; then
         echo -n '.'
         sleep 5
