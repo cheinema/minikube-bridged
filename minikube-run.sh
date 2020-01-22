@@ -24,7 +24,7 @@ if ! "$VBOX_MANAGE" showvminfo "$VM_NAME" &>/dev/null; then
     # Create new VM
     echo "Virtual machine $VM_NAME does not exist yet! Starting setup ..."
     cd ~ # otherwise Minikube could not find the ISO image if `pwd` is on another Windows drive than $HOME
-    "$MINIKUBE" start --memory "$VM_MEMORY" --vm-driver="virtualbox" && "$MINIKUBE" stop || die "Minkube startup failed!"
+    "$MINIKUBE" start --memory "$VM_MEMORY" --vm-driver="virtualbox" && "$MINIKUBE" stop || die "Minikube startup failed!"
 
     # Modify network
     echo "Change NIC mode from NAT to Briged using adapter $WIFI_ADAPTER ..."
