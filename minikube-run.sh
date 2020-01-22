@@ -18,7 +18,7 @@ VBOX_MANAGE=$(which "$VBOX_MANAGE_SEARCH" 2>/dev/null) || die "File ${VBOX_MANAG
 # Check VM exists
 if ! "$VBOX_MANAGE" showvminfo "$VM_NAME" &>/dev/null; then
     # Get name of first WiFi Adapter
-    WIFI_ADAPTER=$(netsh wlan show interfaces | grep -oP "Beschreibung\s+: \K.+" | head -1)
+    WIFI_ADAPTER=$(netsh wlan show interfaces | grep -oP "(Beschreibung|Description)\s+: \K.+" | head -1)
     test -n "$WIFI_ADAPTER" || die "No WiFi Adapter found!"
 
     # Create new VM
