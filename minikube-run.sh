@@ -18,13 +18,13 @@ VBOX_MANAGE=$(which "$VBOX_MANAGE_SEARCH" 2>/dev/null) || die "File ${VBOX_MANAG
 # Check VM exists
 if ! "$VBOX_MANAGE" showvminfo "$VM_NAME" &>/dev/null; then
     # Get name of first WiFi Adapter
-    WIFI_ADAPTER=$(netsh wlan show interfaces | grep -oP "Beschreibung\s+: \K.+" | head -1)
+    WIFI_ADAPTER=$(netsh wlan show interfaces | grep -oP "(Beschreibung|Description)\s+: \K.+" | head -1)
     test -n "$WIFI_ADAPTER" || die "No WiFi Adapter found!"
 
     # Create new VM
     echo "Virtual machine $VM_NAME does not exist yet! Starting setup ..."
     cd ~ # otherwise Minikube could not find the ISO image if `pwd` is on another Windows drive than $HOME
-    "$MINIKUBE" start --memory "$VM_MEMORY" --vm-driver="virtualbox" && "$MINIKUBE" stop || die "Minkube startup failed!"
+    "$MINIKUBE" start --memory "$VM_MEMORY" --vm-driver="virtualbox" && "$MINIKUBE" stop || die "Minikube startup failed!"
 
     # Modify network
     echo "Change NIC mode from NAT to Briged using adapter $WIFI_ADAPTER ..."
